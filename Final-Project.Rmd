@@ -1,0 +1,25 @@
+---
+title: "Final Project"
+author: "Tianjian Xie"
+date: "2023-04-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+library(dplyr)
+```
+
+## Data Input
+```{r include=FALSE}
+COL_Pop <- read.csv("Population_Colorado.csv")
+```
+
+## Data Cleaning
+```{r}
+COL_Pop_Year   <- COL_Pop %>% group_by(year) %>% summarise(across(totalPopulation,sum))
+options(dplyr.summarise.inform = FALSE)
+COL_Pop_County <- COL_Pop %>% group_by(county, year) %>% dplyr::summarise(across(totalPopulation,sum))
+```
+
